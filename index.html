@@ -88,6 +88,19 @@ header{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-
 .trust{display:flex;gap:14px;justify-content:center;margin-top:14px;font-size:12.5px;color:var(--muted)}
 .trust span:before{content:"✓ ";color:var(--mint);font-weight:900}
 
+
+/* ---------- hero coach photo ---------- */
+.hero-top{position:relative;padding-bottom:46px}
+.hero-txt{position:relative;z-index:2}
+.hero-txt .lead{text-shadow:0 1px 10px rgba(7,12,36,.9),0 0 2px rgba(7,12,36,.8)}
+.hero-coach{position:absolute;z-index:1;right:-22px;bottom:0;width:54%;max-width:300px;margin:0;pointer-events:none}
+.hero-coach img{width:100%;display:block;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 30%),linear-gradient(0deg,transparent 0%,#000 22%);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0%,#000 30%),linear-gradient(0deg,transparent 0%,#000 22%);mask-composite:intersect}
+.hero-coach figcaption{position:absolute;right:22px;bottom:4px;background:rgba(7,12,36,.85);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:6px;letter-spacing:-.01em;white-space:nowrap}
+.hero-coach figcaption b{font-weight:900;color:var(--mint)}
+.hero .event{position:relative;z-index:3;background:linear-gradient(160deg,rgba(22,33,90,.92),rgba(14,22,64,.94))}
+
 /* ---------- marquee ---------- */
 .marquee{border-block:1px solid var(--line);background:var(--brand);overflow:hidden;white-space:nowrap;padding:13px 0}
 .marquee div{display:inline-block;animation:mq 22s linear infinite;font-family:"Archivo Black";font-size:15px;letter-spacing:.12em}
@@ -358,9 +371,17 @@ footer b{color:#AEB5D6}
   <!-- ================= HERO ================= -->
   <div class="hero" id="top">
     <img class="wm" src="assets/logo-white.png" alt="" aria-hidden="true">
+    <div class="hero-top">
+    <figure class="hero-coach" aria-label="G복싱 대표관장 이규원">
+      <img src="assets/hero-lee.webp" alt="G복싱 대표관장 이규원" fetchpriority="high">
+      <figcaption>G복싱 대표관장 <b>이규원</b></figcaption>
+    </figure>
+    <div class="hero-txt">
     <div class="kicker">SINCE 1994 · CHAMPION BOXING</div>
     <h1>운동을 넘어,<br><em>나를 지키는 시간.</em></h1>
     <p class="lead">다이어트부터 프로선수까지,<br>남녀노소 누구나 쉽고 즐겁게 배우는 복싱.<br><b>前 한국 챔피언</b>과 <b>프로선수 코치진</b>이<br>함께 만들어가는 G복싱.</p>
+    </div>
+    </div>
 
     <div class="event">
       <span class="tag">EVENT</span>
