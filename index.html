@@ -254,7 +254,11 @@ section{padding:56px 0}
 .chips input:checked + label{background:var(--mint);border-color:var(--mint);color:var(--mint-ink)}
 .chips input:focus-visible + label{outline:2px solid var(--mint);outline-offset:2px}
 .agree{display:flex;align-items:center;gap:10px;font-size:14px;color:#C9CFEA}
-.agree input{width:20px;height:20px;accent-color:var(--mint);flex:none}
+.field .agree input[type=checkbox]{-webkit-appearance:none;appearance:none;width:24px;height:24px;min-width:24px;padding:0;margin:0;flex:none;border-radius:7px;border:2px solid rgba(255,255,255,.35);background:#050920;cursor:pointer;position:relative;transition:.15s}
+.field .agree input[type=checkbox]:checked{background:var(--mint);border-color:var(--mint)}
+.field .agree input[type=checkbox]:checked::after{content:"";position:absolute;left:7px;top:2px;width:6px;height:12px;border:solid var(--mint-ink);border-width:0 3px 3px 0;transform:rotate(45deg)}
+.field .agree input[type=checkbox]:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.agree label{cursor:pointer}
 .agree button{margin-left:auto;font-size:13px;color:var(--muted);text-decoration:underline}
 .err{color:#FF7A86;font-size:13px;margin-top:6px;display:none}
 .field.bad .err{display:block}
@@ -831,7 +835,7 @@ footer b{color:#AEB5D6}
 const CONFIG = {
   META_PIXEL_ID: "",          // 예: "123456789012345"  (Meta 이벤트 관리자 > 픽셀 ID)
   GA4_ID: "",                 // 예: "G-XXXXXXXXXX"     (선택)
-  SHEET_WEBHOOK: "",          // Google Apps Script 웹앱 URL (apps-script.gs 참고)
+  SHEET_WEBHOOK: "https://script.google.com/macros/s/AKfycbxSqRS2spVCU8gi1-2SWEgYHBCE2gOxWAM9AVlpiK6GxWSnpMFYf_2wsPd8WhnCJV8z/exec",          // Google Apps Script 웹앱 URL (apps-script.gs 참고)
   BRANCHES: [
     { id:"juyeop", name:"주엽점", area:"고양 일산서구",
       addr:"경기도 고양시 일산서구 강성로 115 금강빌딩 3층",
