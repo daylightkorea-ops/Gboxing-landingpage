@@ -90,16 +90,23 @@ header{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-
 
 
 /* ---------- hero coach photo ---------- */
-.hero-top{position:relative;padding-bottom:46px}
+.hero-top{position:relative;padding-bottom:96px}
 .hero-txt{position:relative;z-index:2}
 .hero-txt .lead{text-shadow:0 1px 10px rgba(7,12,36,.9),0 0 2px rgba(7,12,36,.8)}
 .hero-coach{position:absolute;z-index:1;right:-22px;bottom:0;width:54%;max-width:300px;margin:0;pointer-events:none}
 .hero-coach img{width:100%;display:block;
   -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 30%),linear-gradient(0deg,transparent 0%,#000 22%);
   -webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0%,#000 30%),linear-gradient(0deg,transparent 0%,#000 22%);mask-composite:intersect}
-.hero-coach figcaption{position:absolute;right:22px;bottom:4px;background:rgba(7,12,36,.85);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:6px;letter-spacing:-.01em;white-space:nowrap}
+.hero-coach figcaption{position:absolute;right:22px;bottom:54px;background:rgba(7,12,36,.85);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:6px;letter-spacing:-.01em;white-space:nowrap}
 .hero-coach figcaption b{font-weight:900;color:var(--mint)}
 .hero .event{position:relative;z-index:3;background:linear-gradient(160deg,rgba(22,33,90,.92),rgba(14,22,64,.94))}
+
+
+.yt-btn{display:inline-flex;align-items:center;gap:7px;background:#fff;color:#0E1640;font-weight:800;font-size:13.5px;padding:9px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 6px 18px -6px rgba(0,0,0,.5)}
+.yt-btn svg{width:20px;height:20px;flex:none}
+.yt-btn:active{transform:scale(.97)}
+.hero-yt{position:absolute;right:22px;bottom:4px;pointer-events:auto}
+.ch-yt{margin-top:10px;font-size:13px;padding:8px 12px}
 
 /* ---------- marquee ---------- */
 .marquee{border-block:1px solid var(--line);background:var(--brand);overflow:hidden;white-space:nowrap;padding:13px 0}
@@ -375,6 +382,7 @@ footer b{color:#AEB5D6}
     <figure class="hero-coach" aria-label="G복싱 대표관장 이규원">
       <img src="assets/hero-lee.webp" alt="G복싱 대표관장 이규원" fetchpriority="high">
       <figcaption>G복싱 대표관장 <b>이규원</b></figcaption>
+      <a class="yt-btn hero-yt" href="https://www.youtube.com/@GBOXING_MASTER" target="_blank" rel="noopener" data-yt="hero"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8z"/><path fill="#fff" d="M9.6 15.6 15.8 12 9.6 8.4z"/></svg>유튜브 보러 가기</a>
     </figure>
     <div class="hero-txt">
     <div class="kicker">SINCE 1994 · CHAMPION BOXING</div>
@@ -638,7 +646,7 @@ footer b{color:#AEB5D6}
   <section id="coaches" style="padding-top:8px">
     <div class="sh reveal">
       <div class="eyebrow">THE COACHES</div>
-      <h2>챔피언과 프로선수<br>코치진</h2>
+      <h2>G복싱<br>전문 코치진</h2>
       <p>꾸준히 배우고 연구하는 지도진이 직접 가르칩니다.</p>
     </div>
     <div class="coach-list">
@@ -650,6 +658,7 @@ footer b{color:#AEB5D6}
             <div class="ch-name">이규원</div>
             <div class="ch-role">대표 관장</div>
             <div class="ch-br">G복싱 대표</div>
+            <a class="yt-btn ch-yt" href="https://www.youtube.com/@GBOXING_MASTER" target="_blank" rel="noopener" data-yt="coach"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8z"/><path fill="#fff" d="M9.6 15.6 15.8 12 9.6 8.4z"/></svg>유튜브 바로가기</a>
           </div>
         </div>
         <div class="ch-hl"><span>🏆 한국 미들급 챔피언</span><span>📺 MBC 복싱 해설위원</span><span>🎬 tvN 아이엠복서 자문·해설</span></div>
@@ -1039,6 +1048,10 @@ CONFIG.BRANCHES.forEach(b=>{
 document.querySelectorAll(".js-call").forEach(btn=>{
   btn.addEventListener("click",e=>{ e.preventDefault(); callFrom=btn.dataset.loc||""; track("call_picker_open",{location:callFrom}); document.querySelectorAll(".modal.open").forEach(closeModal); openModal("callModal"); });
 });
+
+
+/* ---------- 유튜브 클릭 추적 ---------- */
+document.querySelectorAll("[data-yt]").forEach(a=>a.addEventListener("click",()=>track("youtube_click",{location:a.dataset.yt},{sheet:true})));
 
 /* ---------- CTA 클릭 추적 + 목적 프리셋 ---------- */
 document.querySelectorAll("[data-track]").forEach(a=>{
