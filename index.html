@@ -923,7 +923,12 @@ function track(name, params={}, opt={}){
   const p = Object.assign({ session_id:SID }, UTM, params);
   try{
     if(window.fbq){
-      if(opt.fb) fbq('track', opt.fb, params); else fbq('trackCustom', name, params);
+      if(opt.fb){
+        fbq('track', opt.fb, params);
+        // 표준 이벤트가 Meta에서 제한될 경우를 대비해 같은 행동을 맞춤 이벤트로도 전송
+        const alias = { Lead:"trial_apply", Schedule:"booking_click", Contact:"phone_call" }[opt.fb];
+        if(alias) fbq('trackCustom', alias, params);
+      } else fbq('trackCustom', name, params);
     }
     if(window.gtag) gtag('event', name, p);
   }catch(e){}
