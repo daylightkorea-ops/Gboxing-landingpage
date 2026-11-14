@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>G복싱 | 일일 무료체험 · 3개월권 파격 이벤트</title>
-<meta name="description" content="SINCE 1994 챔피언 복싱. 복싱 클래스·컨디셔닝·스파링PT·선수부·1:1 PT. 일일 무료체험 후 등록하면 3개월권 이벤트 혜택! 주엽 · 화정 · 구래 · 야당점">
+<meta name="description" content="SINCE 1994 챔피언 복싱. 복싱 클래스·컨디셔닝·스파링PT·선수부·1:1 PT. 일일 무료체험 후 등록하면 3개월권 이벤트 혜택! 주엽 · 화정 · 향동 · 구래 · 야당점">
 <meta property="og:title" content="G복싱 일일 무료체험 신청">
 <meta property="og:description" content="3개월권 파격 이벤트 진행중! 무료체험 후 등록 시 혜택 적용">
 <meta property="og:image" content="assets/logo-original.png">
@@ -173,7 +173,7 @@ section{padding:56px 0}
 .cb li:before{content:"";position:absolute;left:2px;top:7px;width:12px;height:7px;border-left:2.5px solid var(--mint);border-bottom:2.5px solid var(--mint);transform:rotate(-45deg)}
 .mini{margin-top:16px;font-weight:800;color:var(--mint);font-size:14.5px;display:inline-flex;gap:6px}
 .sub{margin:48px 22px 0}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--navy);padding:5px;border-radius:14px;border:1px solid var(--line)}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:var(--navy);padding:5px;border-radius:14px;border:1px solid var(--line)}
 .tabs button{padding:11px 4px;border-radius:10px;font-weight:800;font-size:14px;color:var(--muted)}
 .tabs button[aria-selected="true"]{background:var(--mint);color:var(--mint-ink)}
 .tt{margin-top:12px}
@@ -626,7 +626,7 @@ footer b{color:#AEB5D6}
     </div>
     <div class="stats">
       <div class="stat reveal"><div class="n">1994</div><div class="t">한 길로 이어온<br>G복싱의 역사</div></div>
-      <div class="stat reveal"><div class="n">4<small> 지점</small></div><div class="t">주엽 · 화정<br>구래 · 야당</div></div>
+      <div class="stat reveal"><div class="n">5<small> 지점</small></div><div class="t">주엽 · 화정 · 향동<br>구래 · 야당</div></div>
       <div class="stat wide reveal">
         <div class="ic">📚</div>
         <div><div class="t" style="margin:0;font-size:15px"><b style="color:#fff">정기적으로 교육받는 전 지도진</b><br><span style="color:var(--muted);font-weight:500">KBG 지도자 과정 · 뇌부상 세미나 · 컨디셔닝 교육 등</span></div></div>
@@ -801,7 +801,7 @@ footer b{color:#AEB5D6}
 
   <footer>
     <b>G BOXING STUDIO CHAMPION</b><br>
-    주엽점 · 화정점 · 구래점 · 야당점<br>
+    주엽점 · 화정점 · 향동점 · 구래점 · 야당점<br>
     <!-- 사업자 정보: 상호 / 대표자 / 사업자등록번호 / 주소 를 여기에 입력 -->
     © G BOXING. All rights reserved.
   </footer>
@@ -885,7 +885,13 @@ const CONFIG = {
     { id:"yadang", name:"야당점", area:"파주 야당동",
       addr:"경기도 파주시 경의로1004번길 37 5층",
       hours:"09:30–23:00 (선수부 훈련·휴게 11:20–15:00)",
-      tel:"031-941-3338", naverBooking:"https://naver.me/GrmF5v9X", naverPlace:"", timetable:"assets/timetable-yadang.jpg" }
+      tel:"031-941-3338", naverBooking:"https://naver.me/GrmF5v9X", naverPlace:"", timetable:"assets/timetable-yadang.jpg" },
+    { id:"hyangdong", name:"향동점", area:"고양 향동 · NEW",
+      addr:"경기도 고양시 덕양구 꽃마을로 68 로데오프라자 6층",
+      hours:"10:00–23:00 (선수부 훈련·휴게 11:20–15:00)",
+      tel:"02-3159-3888",
+      naverBooking:"",          // ← 네이버 예약 링크 준비되면 입력 (비어 있으면 전화 연결)
+      naverPlace:"", timetable:"assets/timetable-hyangdong.jpg" }
   ]
 };
 /* ===================================================================== */
@@ -946,6 +952,7 @@ function sendSheet(data){
 
 /* ---------- 네이버 예약 링크 (유입 파라미터 부착) ---------- */
 function naverUrl(b){
+  if(!b.naverBooking && b.tel) return "tel:"+b.tel;   // 네이버 예약 링크 준비 전에는 전화로 연결
   const base = b.naverBooking || b.naverPlace || ("https://map.naver.com/p/search/" + encodeURIComponent("G복싱 " + b.name));
   try{
     const u = new URL(base);
@@ -1057,6 +1064,22 @@ document.querySelectorAll(".js-call").forEach(btn=>{
 
 /* ---------- 유튜브 클릭 추적 ---------- */
 document.querySelectorAll("[data-yt]").forEach(a=>a.addEventListener("click",()=>track("youtube_click",{location:a.dataset.yt},{sheet:true})));
+
+/* ---------- 향동점: QR/링크 유입 시 지점 자동 선택 + 예약 준비중 처리 ---------- */
+(function(){
+  const camp=(UTM.utm_campaign||"").toLowerCase();
+  const pre=CONFIG.BRANCHES.find(b=>b.id===camp);
+  if(pre){ const s=document.getElementById("f-branch"); if(s) s.value=pre.id; }
+  const fix=()=>document.querySelectorAll('a[href^="tel:"][target]').forEach(a=>a.removeAttribute("target"));
+  fix(); document.addEventListener("click",()=>setTimeout(fix,0),true);
+  CONFIG.BRANCHES.filter(b=>!b.naverBooking).forEach(b=>{
+    document.querySelectorAll('a[href="tel:'+b.tel+'"]').forEach(a=>{
+      if(a.classList.contains("a-naver")) a.textContent="📞 전화 예약";
+      const t=a.querySelector(".t > span"); if(t && a.closest("#bookList")) t.textContent="네이버 예약 준비중 · 전화로 예약";
+      const sm=a.querySelector("small"); if(sm && a.closest("#progBooking")) sm.textContent="전화 예약";
+    });
+  });
+})();
 
 /* ---------- CTA 클릭 추적 + 목적 프리셋 ---------- */
 document.querySelectorAll("[data-track]").forEach(a=>{

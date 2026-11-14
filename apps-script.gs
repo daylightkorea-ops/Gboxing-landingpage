@@ -39,7 +39,7 @@ function doPost(e) {
       }
     } else {
       const sh = getSheet_(ss, "이벤트", EVENT_HEADERS);
-      const label = { naver_booking_click: "네이버 예약 클릭", kakao_click: "카톡 상담 클릭", phone_click: "전화 클릭" }[d.type] || d.type;
+      const label = { naver_booking_click: "네이버 예약 클릭", kakao_click: "카톡 상담 클릭", phone_click: "전화 클릭", youtube_click: "유튜브 클릭" }[d.type] || d.type;
       sh.appendRow([now, label, d.branch || "", d.location || "", d.from_lead || "",
         d.utm_source || "", d.utm_medium || "", d.utm_campaign || "", d.utm_content || "", d.session_id || ""]);
     }
