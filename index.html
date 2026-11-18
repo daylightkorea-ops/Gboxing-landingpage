@@ -891,7 +891,8 @@ const CONFIG = {
       addr:"경기도 고양시 덕양구 꽃마을로 68 로데오프라자 6층",
       hours:"10:00–23:00 (선수부 훈련·휴게 11:20–15:00)",
       tel:"02-3159-3888",
-      naverBooking:"",          // ← 네이버 예약 링크 준비되면 입력 (비어 있으면 전화 연결)
+      naverBooking:"https://hyangdongopen.vercel.app/",   // 스마트플레이스 준비 전까지 향동점 오픈 페이지로 연결 (준비되면 naver.me 링크로 교체)
+      bookingNote:"오픈 예약 페이지",
       naverPlace:"", timetable:"assets/timetable-hyangdong.jpg" }
   ]
 };
@@ -957,7 +958,7 @@ function naverUrl(b){
   const base = b.naverBooking || b.naverPlace || ("https://map.naver.com/p/search/" + encodeURIComponent("G복싱 " + b.name));
   try{
     const u = new URL(base);
-    if(u.hostname==="naver.me") return base;   // 단축링크는 파라미터를 붙이면 깨질 수 있어 그대로 사용 (유입 추적은 시트·픽셀에서)
+    if(u.hostname==="naver.me" || !u.hostname.includes("naver")) return base;   // 단축링크는 파라미터를 붙이면 깨질 수 있어 그대로 사용 (유입 추적은 시트·픽셀에서)
     u.searchParams.set("nt_source", UTM.utm_source || "landing");
     u.searchParams.set("nt_medium", UTM.utm_medium || "landingpage");
     u.searchParams.set("nt_detail", b.id);
@@ -1073,6 +1074,15 @@ document.querySelectorAll("[data-yt]").forEach(a=>a.addEventListener("click",()=
   if(pre){ const s=document.getElementById("f-branch"); if(s) s.value=pre.id; }
   const fix=()=>document.querySelectorAll('a[href^="tel:"][target]').forEach(a=>a.removeAttribute("target"));
   fix(); document.addEventListener("click",()=>setTimeout(fix,0),true);
+  CONFIG.BRANCHES.filter(b=>b.bookingNote).forEach(b=>{
+    document.querySelectorAll('a[href="'+b.naverBooking+'"]').forEach(a=>{
+      if(a.classList.contains("a-naver")) a.textContent="향동점 예약 →";
+      const t=a.querySelector(".t > span"); if(t && a.closest("#bookList")) t.textContent=b.bookingNote+"로 연결돼요";
+      const n=a.querySelector(".n"); if(n && a.closest("#bookList")) n.textContent="G";
+      const sm=a.querySelector("small"); if(sm && a.closest("#progBooking")) sm.textContent=b.bookingNote;
+      if(a.closest("#progBooking")) a.firstChild.textContent="G "+b.name;
+    });
+  });
   CONFIG.BRANCHES.filter(b=>!b.naverBooking).forEach(b=>{
     document.querySelectorAll('a[href="tel:'+b.tel+'"]').forEach(a=>{
       if(a.classList.contains("a-naver")) a.textContent="📞 전화 예약";
@@ -1124,6 +1134,7 @@ document.getElementById("trialForm").addEventListener("submit",async e=>{
 
   const nv=document.getElementById("doneNaver");
   nv.href=naverUrl(b);
+  nv.textContent = b.bookingNote ? "G복싱 "+b.name+" "+b.bookingNote+"로 이동 →" : "N 네이버 예약으로 시간 확정하기 →";
   nv.onclick=()=>bookingClick(b,"after_lead");
   document.getElementById("doneMsg").textContent = `${data.name}님, 마지막 단계! ${b.name} 체험 시간을 네이버 예약으로 확정해주세요. 3개월권 이벤트 혜택은 체험 후 등록 시 적용됩니다.`;
   openModal("doneModal");
